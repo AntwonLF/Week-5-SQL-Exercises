@@ -562,6 +562,46 @@ INSERT INTO Sales.OrderDetails(OrderId, ProductId, Price, quantity)
                     FROM  Purchasing.Deliveries
                     WHERE  Price = (SELECT MAX(Price) FROM Purchasing.Deliveries);
 
+                    SELECT 
+                        ProductId, 
+                        SUM(Quantity) AS TotalUnitsDelivered
+                    FROM Purchasing.Deliveries
+                    WHERE   Price > 1000.00
+                    GROUP BY  ProductId
+                    HAVING  SUM(Quantity) >= 10;
+
+                    SELECT 
+                        OrderId, 
+                        SUM(Quantity) AS TotalUnits
+                    FROM Sales.OrderDetails
+                    WHERE Price > 150.00
+                    GROUP BY OrderId
+                    HAVING SUM(Quantity) >= 3;
+
+
+                    SELECT 
+                        ProductId, 
+                        SUM(Quantity) AS "Total units" , 
+                        AVG(Price) AS "Average Price"
+                    FROM  Purchasing.Deliveries
+                    WHERE DeliveryDate BETWEEN '20161001' AND '20161011'
+                    GROUP BY ProductId
+                    HAVING  SUM(Quantity) >= 10
+                    ORDER BY "Total units" DESC;
+
+
+                    SELECT 
+                        OrderId, 
+                        SUM(Quantity) AS "Total units" , 
+                        AVG(Price) AS "Average Price"
+                    FROM  Sales.OrderDetails
+                    WHERE ProductId IN (1, 3)
+                    GROUP BY OrderId
+                    HAVING SUM(Quantity) >= 3
+                    ORDER BY  "Total units"  DESC;
+
+
+
 
 
 
