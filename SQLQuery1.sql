@@ -1,3 +1,11 @@
+
+-- Course Number and Title: CISS 202 DEA - Introduction to Databases
+-- Name: Antwon Frager Jr
+-- Assignment Number: Dropbox Assignment 9
+-- Date: September 24, 2024
+
+
+
 USE master;
 
  
@@ -536,6 +544,9 @@ INSERT INTO Sales.OrderDetails(OrderId, ProductId, Price, quantity)
 
                     VALUES(8, 8, 59.99, 2);
 
+
+
+-- SQL Example 5.4 on Page 157.
                     SELECT 
                         OrderId,
                         SUM(Price * Quantity) AS TotalSalesValue
@@ -543,6 +554,7 @@ INSERT INTO Sales.OrderDetails(OrderId, ProductId, Price, quantity)
                     WHERE OrderId = 3
                     GROUP BY  OrderId;
 
+-- SQL Exercises 5.4 on Page 175.                  
                     SELECT 
                         ProductId,
                         SUM(Quantity * Price) AS TotalValue
@@ -550,18 +562,21 @@ INSERT INTO Sales.OrderDetails(OrderId, ProductId, Price, quantity)
                     WHERE  ProductId = 7
                     GROUP BY  ProductId;
 
+-- SQL Example 5.7 on Page 160.
                     SELECT 
                         ProductId, 
                         Price
                     FROM  Sales.OrderDetails
                     WHERE  Price = (SELECT MAX(Price) FROM Sales.OrderDetails);
 
+-- SQL Exercises 5.7 on Page 176.
                     SELECT 
                         ProductId, 
                         Price
                     FROM  Purchasing.Deliveries
                     WHERE  Price = (SELECT MAX(Price) FROM Purchasing.Deliveries);
 
+-- SQL Example 5.11 on Page 164.
                     SELECT 
                         ProductId, 
                         SUM(Quantity) AS TotalUnitsDelivered
@@ -570,6 +585,7 @@ INSERT INTO Sales.OrderDetails(OrderId, ProductId, Price, quantity)
                     GROUP BY  ProductId
                     HAVING  SUM(Quantity) >= 10;
 
+-- SQL Exercises 5.11 on Page 177.
                     SELECT 
                         OrderId, 
                         SUM(Quantity) AS TotalUnits
@@ -578,7 +594,7 @@ INSERT INTO Sales.OrderDetails(OrderId, ProductId, Price, quantity)
                     GROUP BY OrderId
                     HAVING SUM(Quantity) >= 3;
 
-
+-- SQL Example 5.13 on Page 166.
                     SELECT 
                         ProductId, 
                         SUM(Quantity) AS "Total units" , 
@@ -589,7 +605,7 @@ INSERT INTO Sales.OrderDetails(OrderId, ProductId, Price, quantity)
                     HAVING  SUM(Quantity) >= 10
                     ORDER BY "Total units" DESC;
 
-
+-- SQL Exercises 5.13 on Page 177.
                     SELECT 
                         OrderId, 
                         SUM(Quantity) AS "Total units" , 
@@ -599,6 +615,18 @@ INSERT INTO Sales.OrderDetails(OrderId, ProductId, Price, quantity)
                     GROUP BY OrderId
                     HAVING SUM(Quantity) >= 3
                     ORDER BY  "Total units"  DESC;
+
+-- SQL Example 5.16 on Page 170.
+                    SELECT DISTINCT o.CustomerId
+                    FROM  Sales.OrderDetails od
+                    JOIN  Sales.Orders o ON od.OrderId = o.OrderId
+                    WHERE  od.ProductId = 1;
+
+-- SQL Exercises 5.16 on Page 178.
+                    SELECT DISTINCT   p.SupplierId
+                    FROM Purchasing.Deliveries d
+                    JOIN Purchasing.Products p ON d.ProductId = p.ProductId
+                    WHERE  d.DeliveryDate BETWEEN '20161005' AND '20161010';
 
 
 
